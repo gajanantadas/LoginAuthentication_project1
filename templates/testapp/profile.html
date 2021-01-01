@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+    <link rel="stylesheet" href="{% static 'testapp/style.css' %}">
+</head>
+<body>
+<h2>Hello Welcome {{ name }}</h2>
+{% if messages %}
+        {% for msg in messages %}
+        <small {% if msg.tags %} class="{{ msg.tags }}" {% endif %}>{{ msg }}</small>
+                                    {% endfor %}
+    {% endif %}<br>
+<form method="post">
+    {% csrf_token %}
+    {% for foo in form %}
+    {{ foo.label_tag }}{{ foo }}{{ foo.errors|striptags }}<br><br>
+    {% endfor %}
+    <input type="submit" value="SAVE"><br>
+</form>
+<a href="{% url 'change' %}">Change_password</a><br>
+<a href="{% url 'change1' %}">Change_password_without_OLD_pass</a><br><br>
+<a href="{% url 'logout_view' %}">LogOut</a>
+</body>
+</html>
